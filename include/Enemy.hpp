@@ -1,0 +1,14 @@
+#pragma once
+
+#include "Position.hpp"
+
+class Enemy {
+  Position pos;
+
+public:
+  Enemy(Position start);
+
+  void update();
+  Position position() const;
+  bool reachedExit() const;
+};
