@@ -34,30 +34,3 @@ tests/          Future tests
 docs/lessons/   Lesson notes
 build/          Generated build output, not committed
 ```
-
-## Current Milestone
-
-Milestone 1: project skeleton and game loop.
-
-Current goal:
-
-- Build successfully with CMake.
-- Run the program from the terminal.
-- Add a simple grid render loop.
-- Move one enemy across the grid.
-- Keep the design simple before adding custom data structures.
-
-## Git Ignore Notes
-
-Generated files should not be committed:
-
-```text
-build/
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
-*.o
-.DS_Store
-.vscode/
-```
