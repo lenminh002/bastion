@@ -17,8 +17,9 @@ public:
   ~ArrayList() { delete[] data; };
 
   void pushBack(const T &val);
-  bool isEmpty() const { return count == 0; };
-  int size() const { return count; };
+  bool isEmpty() const { return count == 0; }
+  int size() const { return count; }
+  void removeAt(int index);
 
   const T &operator[](int index) const { return data[index]; };
   T &operator[](int index) { return data[index]; };
@@ -68,4 +69,16 @@ template <typename T> void ArrayList<T>::pushBack(const T &val) {
   }
   data[count] = val;
   count++;
+}
+
+template <typename T> void ArrayList<T>::removeAt(int index) {
+  if (index < 0 || index >= count) {
+    return;
+  }
+
+  for (int i = index; i < count - 1; i++) {
+    data[i] = data[i + 1];
+  }
+
+  count--;
 }

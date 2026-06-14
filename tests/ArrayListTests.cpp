@@ -96,6 +96,60 @@ int main() {
   passed = expect(assigned[1] == 20, "assigned list preserves copied values") &&
            passed;
 
+  ArrayList<int> removable;
+  removable.pushBack(10);
+  removable.pushBack(20);
+  removable.pushBack(30);
+  removable.pushBack(40);
+
+  removable.removeAt(1);
+  passed =
+      expect(removable.size() == 3, "removeAt from middle decreases size") &&
+      passed;
+  passed = expect(removable[0] == 10,
+                  "removeAt from middle preserves value before index") &&
+           passed;
+  passed = expect(removable[1] == 30,
+                  "removeAt from middle shifts next value left") &&
+           passed;
+  passed = expect(removable[2] == 40,
+                  "removeAt from middle keeps later values in order") &&
+           passed;
+
+  removable.removeAt(0);
+  passed =
+      expect(removable.size() == 2, "removeAt from front decreases size") &&
+      passed;
+  passed =
+      expect(removable[0] == 30, "removeAt from front shifts first value") &&
+      passed;
+  passed = expect(removable[1] == 40,
+                  "removeAt from front preserves remaining order") &&
+           passed;
+
+  removable.removeAt(removable.size() - 1);
+  passed = expect(removable.size() == 1, "removeAt from back decreases size") &&
+           passed;
+  passed = expect(removable[0] == 30,
+                  "removeAt from back preserves earlier values") &&
+           passed;
+
+  removable.removeAt(-1);
+  passed = expect(removable.size() == 1,
+                  "removeAt with negative index leaves size unchanged") &&
+           passed;
+  passed = expect(removable[0] == 30,
+                  "removeAt with negative index leaves values unchanged") &&
+           passed;
+
+  removable.removeAt(99);
+  passed = expect(removable.size() == 1,
+                  "removeAt with too-large index leaves size unchanged") &&
+           passed;
+  passed = expect(removable[0] == 30,
+                  "removeAt with too-large index leaves values unchanged") &&
+           passed;
+
   if (!passed) {
     return 1;
   }

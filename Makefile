@@ -11,10 +11,12 @@ build:
 
 test:
 	cmake -S . -B build
-	cmake --build build --target bastion_tests
-	./build/bastion_tests
+	cmake --build build --target arraylist_tests
+	./build/arraylist_tests
 	cmake --build build --target queue_tests
 	./build/queue_tests
+	cmake --build build --target stack_tests
+	./build/stack_tests
 
 configure:
 	cmake -S . -B build

@@ -8,7 +8,9 @@ Game::Game() : grid(5, 10), running(true) {
   enemySpawnQueue.enqueue(Enemy(Position{1, 0}));
 
   towers.pushBack(Tower(Position{3, 2}));
+  towerUndoStack.push(Position{3, 2});
   towers.pushBack(Tower(Position{3, 4}));
+  towerUndoStack.push(Position{3, 4});
 }
 
 void Game::run() {
@@ -21,6 +23,18 @@ void Game::run() {
 
     if (tick % 3 == 0 && !enemySpawnQueue.isEmpty()) {
       enemies.pushBack(enemySpawnQueue.dequeue());
+    }
+
+    if (tick == 5 && !towerUndoStack.isEmpty()) {
+      Position lastPosition = towerUndoStack.pop();
+      // find index of tower with same position
+      for (int i = 0; i < towers.size(); i++) {
+        if (towers[i].position().row == lastPosition.row &&
+            towers[i].position().col == lastPosition.col) {
+          towers.removeAt(i);
+          break;
+        }
+      }
     }
 
     grid.render(enemies, towers);

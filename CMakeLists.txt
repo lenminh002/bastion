@@ -13,13 +13,17 @@ add_executable(bastion
     src/Enemy.cpp
     src/Tower.cpp
 )
-add_executable(bastion_tests
+add_executable(arraylist_tests
     tests/ArrayListTests.cpp
 )
 add_executable(queue_tests
     tests/QueueTests.cpp
 )
+add_executable(stack_tests
+    tests/StackTests.cpp
+)
 
 target_include_directories(bastion PRIVATE include)
-target_include_directories(bastion_tests PRIVATE include)
+target_include_directories(arraylist_tests PRIVATE include)
 target_include_directories(queue_tests PRIVATE include)
+target_include_directories(stack_tests PRIVATE include)
