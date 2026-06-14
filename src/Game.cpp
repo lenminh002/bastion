@@ -37,7 +37,26 @@ void Game::run() {
       }
     }
 
-    grid.render(enemies, towers);
+    if (tick % 2 == 0) {
+      projectiles.pushBack(Projectile(Position{3, 5}, 1));
+    }
+
+    grid.render(enemies, towers, projectiles);
+
+    for (int i = 0; i < projectiles.size(); i++) {
+      projectiles[i].update();
+    }
+
+    // removeAt(i) shifts the next projectile into index i, so only advance
+    // when nothing was removed.
+    int i = 0;
+    while (i < projectiles.size()) {
+      if (!projectiles[i].isActive()) {
+        projectiles.removeAt(i);
+      } else {
+        i++;
+      }
+    }
 
     for (int i = 0; i < enemies.size(); i++) {
       enemies[i].update();

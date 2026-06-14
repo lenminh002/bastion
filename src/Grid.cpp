@@ -5,7 +5,8 @@ using namespace std;
 Grid::Grid(int rows, int cols) : rows(rows), cols(cols) {}
 
 void Grid::render(const ArrayList<Enemy> &enemies,
-                  const ArrayList<Tower> &towers) const {
+                  const ArrayList<Tower> &towers,
+                  const SinglyLinkedList<Projectile> &projectiles) const {
 
   for (int row = 0; row < rows; row++) {
     for (int col = 0; col < cols; col++) {
@@ -30,10 +31,22 @@ void Grid::render(const ArrayList<Enemy> &enemies,
         }
       }
 
+      // check if there is a projectile at the current position
+      bool projectileHere = false;
+      for (int p = 0; p < projectiles.size(); p++) {
+        Position projectilePos = projectiles[p].position();
+
+        if (projectilePos.row == row && projectilePos.col == col) {
+          projectileHere = true;
+        }
+      }
+
       if (enemyHere) {
         cout << "E";
       } else if (towerHere) {
         cout << "T";
+      } else if (projectileHere) {
+        cout << "*";
       } else {
         cout << ".";
       }

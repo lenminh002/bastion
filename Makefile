@@ -17,6 +17,8 @@ test:
 	./build/queue_tests
 	cmake --build build --target stack_tests
 	./build/stack_tests
+	cmake --build build --target singly_linked_list_tests
+	./build/singly_linked_list_tests
 
 configure:
 	cmake -S . -B build

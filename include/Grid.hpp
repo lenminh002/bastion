@@ -2,6 +2,8 @@
 
 #include "ArrayList.hpp"
 #include "Enemy.hpp"
+#include "Projectile.hpp"
+#include "SinglyLinkedList.hpp"
 #include "Tower.hpp"
 
 class Grid {
@@ -11,6 +13,6 @@ class Grid {
 public:
   Grid(int rows, int cols);
 
-  void render(const ArrayList<Enemy> &enemies,
-              const ArrayList<Tower> &towers) const;
+  void render(const ArrayList<Enemy> &enemies, const ArrayList<Tower> &towers,
+              const SinglyLinkedList<Projectile> &projectiles) const;
 };
