@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ArrayList.hpp"
 #include "Enemy.hpp"
 #include "Tower.hpp"
 
@@ -10,5 +11,6 @@ class Grid {
 public:
   Grid(int rows, int cols);
 
-  void render(const Enemy &enemy, const Tower &tower) const;
+  void render(const ArrayList<Enemy> &enemies,
+              const ArrayList<Tower> &towers) const;
 };

@@ -7,6 +7,29 @@ A terminal tower defense project for learning data structures in C++.
 From the project root:
 
 ```bash
+make
+```
+
+This configures CMake, builds the game, and runs:
+
+```bash
+./build/bastion
+```
+
+Useful shortcuts:
+
+```bash
+make build      # configure and build all targets
+make test       # build and run tests
+make configure  # configure CMake only
+make clean      # clean generated build outputs
+```
+
+The `Makefile` is only a shortcut wrapper. CMake is still the real build system.
+
+Raw CMake commands:
+
+```bash
 cmake -S . -B build
 cmake --build build
 ./build/bastion
@@ -25,12 +48,19 @@ Run this again only when CMake setup changes, such as adding new source files:
 cmake -S . -B build
 ```
 
+Run ArrayList tests directly:
+
+```bash
+cmake --build build --target array_list_tests
+./build/array_list_tests
+```
+
 ## Project Layout
 
 ```text
 include/        Header files
 src/            C++ implementation files
 tests/          Future tests
-docs/lessons/   Lesson notes
+docs/           Docs
 build/          Generated build output, not committed
 ```

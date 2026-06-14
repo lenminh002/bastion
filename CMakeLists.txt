@@ -13,5 +13,9 @@ add_executable(bastion
     src/Enemy.cpp
     src/Tower.cpp
 )
+add_executable(bastion_tests
+    tests/ArrayListTests.cpp
+)
 
 target_include_directories(bastion PRIVATE include)
+target_include_directories(bastion_tests PRIVATE include)

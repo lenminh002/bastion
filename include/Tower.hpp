@@ -10,6 +10,7 @@ class Tower {
   int cooldown;
 
 public:
+  Tower();
   Tower(Position start);
 
   void update();
