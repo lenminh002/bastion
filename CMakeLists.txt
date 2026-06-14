@@ -16,6 +16,10 @@ add_executable(bastion
 add_executable(bastion_tests
     tests/ArrayListTests.cpp
 )
+add_executable(queue_tests
+    tests/QueueTests.cpp
+)
 
 target_include_directories(bastion PRIVATE include)
 target_include_directories(bastion_tests PRIVATE include)
+target_include_directories(queue_tests PRIVATE include)

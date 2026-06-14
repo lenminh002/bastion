@@ -101,6 +101,5 @@ int main() {
   }
 
   std::cout << "All ArrayList tests passed\n";
-  std::cout << "==========================\n";
   return 0;
 }
