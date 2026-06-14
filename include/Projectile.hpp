@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Constants.hpp"
 #include "Position.hpp"
 
 class Projectile {
@@ -31,7 +32,7 @@ inline void Projectile::update() {
 
   pos.col += 1;
 
-  if (pos.col > 9) {
+  if (pos.col > Constants::lastGridCol) {
     active = false;
   }
 }

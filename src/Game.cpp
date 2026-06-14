@@ -1,9 +1,10 @@
 #include "Game.hpp"
+#include "Constants.hpp"
 #include <chrono>
 #include <thread>
 using namespace std;
 
-Game::Game() : grid(5, 10), running(true) {
+Game::Game() : grid(Constants::gridRows, Constants::gridCols), running(true) {
   enemySpawnQueue.enqueue(Enemy(Position{1, 0}));
   enemySpawnQueue.enqueue(Enemy(Position{1, 0}));
 
