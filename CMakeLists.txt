@@ -25,9 +25,13 @@ add_executable(stack_tests
 add_executable(singly_linked_list_tests
     tests/SinglyLinkedListTests.cpp
 )
+add_executable(doubly_linked_list_tests
+    tests/DoublyLinkedListTests.cpp
+)
 
 target_include_directories(bastion PRIVATE include)
 target_include_directories(arraylist_tests PRIVATE include)
 target_include_directories(queue_tests PRIVATE include)
 target_include_directories(stack_tests PRIVATE include)
 target_include_directories(singly_linked_list_tests PRIVATE include)
+target_include_directories(doubly_linked_list_tests PRIVATE include)

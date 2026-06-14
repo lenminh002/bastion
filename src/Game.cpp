@@ -10,7 +10,10 @@ Game::Game() : grid(Constants::gridRows, Constants::gridCols), running(true) {
 
   towers.pushBack(Tower(Position{3, 2}));
   towerUndoStack.push(Position{3, 2});
+  eventHistory.pushBack("Built tower");
+
   towers.pushBack(Tower(Position{3, 4}));
+  eventHistory.pushBack("Built tower");
   towerUndoStack.push(Position{3, 4});
 }
 
@@ -24,6 +27,7 @@ void Game::run() {
 
     if (tick % 3 == 0 && !enemySpawnQueue.isEmpty()) {
       enemies.pushBack(enemySpawnQueue.dequeue());
+      eventHistory.pushBack("Spawned enemy");
     }
 
     if (tick == 5 && !towerUndoStack.isEmpty()) {
@@ -33,6 +37,7 @@ void Game::run() {
         if (towers[i].position().row == lastPosition.row &&
             towers[i].position().col == lastPosition.col) {
           towers.removeAt(i);
+          eventHistory.pushBack("Undid tower placement");
           break;
         }
       }
@@ -40,10 +45,15 @@ void Game::run() {
 
     if (tick % 2 == 0) {
       projectiles.pushBack(Projectile(Position{3, 5}, 1));
+      eventHistory.pushBack("Fired projectile");
     }
 
     grid.render(enemies, towers, projectiles);
 
+    // Print last event
+    if (!eventHistory.isEmpty()) {
+      cout << "Last event: " << eventHistory.back() << endl;
+    }
     for (int i = 0; i < projectiles.size(); i++) {
       projectiles[i].update();
     }
