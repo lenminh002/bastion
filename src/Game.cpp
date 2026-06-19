@@ -1,8 +1,23 @@
 #include "Game.hpp"
 #include "Constants.hpp"
+#include "MapValidator.hpp"
 #include <chrono>
+#include <iostream>
 #include <thread>
 using namespace std;
+
+namespace {
+const char gameMap[Constants::gridRows][Constants::gridCols] = {
+    {'S', '.', '.', '.', '.', '#', '.', '.', '.', 'E'},
+    {'#', '#', '#', '#', '.', '.', '.', '#', '#', '#'},
+    {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+    {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+    {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
+};
+
+constexpr Position spawnPosition{0, 0};
+constexpr Position exitPosition{0, Constants::lastGridCol};
+} // namespace
 
 Game::Game() : grid(Constants::gridRows, Constants::gridCols), running(true) {
   enemySpawnQueue.enqueue(Enemy(Position{1, 0}));
@@ -18,6 +33,12 @@ Game::Game() : grid(Constants::gridRows, Constants::gridCols), running(true) {
 }
 
 void Game::run() {
+  MapValidator validator;
+  if (!validator.hasPath(gameMap, spawnPosition, exitPosition)) {
+    cout << "Invalid map: no path from spawn to exit\n";
+    return;
+  }
+
   int tick = 0;
 
   while (running) {
@@ -78,6 +99,7 @@ void Game::run() {
 
     for (int i = 0; i < enemies.size(); i++) {
       if (enemySpawnQueue.isEmpty() && enemies[i].reachedExit()) {
+        eventHistory.pushBack("Game Over");
         running = false;
       }
     }

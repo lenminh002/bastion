@@ -21,6 +21,8 @@ test:
 	./build/singly_linked_list_tests
 	cmake --build build --target doubly_linked_list_tests
 	./build/doubly_linked_list_tests
+	cmake --build build --target map_validator_tests
+	./build/map_validator_tests
 
 configure:
 	cmake -S . -B build
