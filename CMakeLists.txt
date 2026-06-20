@@ -34,6 +34,9 @@ add_executable(map_validator_tests
 add_executable(binary_search_tree_tests
     tests/BinarySearchTreeTests.cpp
 )
+add_executable(hash_table_tests
+    tests/HashTableTests.cpp
+)
 
 target_include_directories(bastion PRIVATE include)
 target_include_directories(arraylist_tests PRIVATE include)
@@ -43,3 +46,4 @@ target_include_directories(singly_linked_list_tests PRIVATE include)
 target_include_directories(doubly_linked_list_tests PRIVATE include)
 target_include_directories(map_validator_tests PRIVATE include)
 target_include_directories(binary_search_tree_tests PRIVATE include)
+target_include_directories(hash_table_tests PRIVATE include)

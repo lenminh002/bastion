@@ -5,10 +5,12 @@
 #include "game/Grid.hpp"
 #include "game/Projectile.hpp"
 #include "game/Tower.hpp"
+#include "game/TowerType.hpp"
 #include "game/TowerUpgrade.hpp"
 #include "structures/ArrayList.hpp"
 #include "structures/BinarySearchTree.hpp"
 #include "structures/DoublyLinkedList.hpp"
+#include "structures/HashTable.hpp"
 #include "structures/Queue.hpp"
 #include "structures/SinglyLinkedList.hpp"
 #include "structures/Stack.hpp"
@@ -29,6 +31,9 @@ class Game {
 
   // BST for looking up tower upgrades by level
   BinarySearchTree<int, TowerUpgrade> towerUpgrades;
+
+  // Hash table for looking up tower types by name
+  HashTable<TowerType> towerTypes;
 
   bool running;
 

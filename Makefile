@@ -25,6 +25,8 @@ test:
 	./build/map_validator_tests
 	cmake --build build --target binary_search_tree_tests
 	./build/binary_search_tree_tests
+	cmake --build build --target hash_table_tests
+	./build/hash_table_tests
 
 configure:
 	cmake -S . -B build

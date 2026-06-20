@@ -31,6 +31,16 @@ const char gameMap[Constants::gridRows][Constants::gridCols] = {
 };
 constexpr Position spawnPosition{0, 0};
 constexpr Position exitPosition{0, Constants::lastGridCol};
+
+void printTowerType(HashTable<TowerType> &towerTypes, const string &name) {
+  TowerType *towerType = towerTypes.find(name);
+  if (towerType == nullptr) {
+    return;
+  }
+
+  cout << towerType->name << ": damage " << towerType->damage << ", range "
+       << towerType->range << ", cost " << towerType->cost << "\n";
+}
 } // namespace
 
 Game::Game() : grid(Constants::gridRows, Constants::gridCols), running(true) {
@@ -48,6 +58,10 @@ Game::Game() : grid(Constants::gridRows, Constants::gridCols), running(true) {
   towerUpgrades.insert(1, TowerUpgrade{1, 1, 0, 50});
   towerUpgrades.insert(2, TowerUpgrade{2, 2, 1, 100});
   towerUpgrades.insert(3, TowerUpgrade{3, 4, 1, 200});
+
+  towerTypes.insert("cannon", TowerType{"cannon", 2, 3, 50});
+  towerTypes.insert("sniper", TowerType{"sniper", 5, 6, 120});
+  towerTypes.insert("rapid", TowerType{"rapid", 1, 2, 40});
 }
 
 void Game::run() {
@@ -69,6 +83,12 @@ void Game::run() {
            << upgrade->cost << "\n";
     }
   }
+  this_thread::sleep_for(chrono::milliseconds(1000));
+
+  cout << "Tower types:\n";
+  printTowerType(towerTypes, "cannon");
+  printTowerType(towerTypes, "sniper");
+  printTowerType(towerTypes, "rapid");
   this_thread::sleep_for(chrono::milliseconds(1000));
 
   int tick = 0;
