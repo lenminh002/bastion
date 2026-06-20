@@ -4,9 +4,10 @@ using namespace std;
 
 Grid::Grid(int rows, int cols) : rows(rows), cols(cols) {}
 
-void Grid::render(const ArrayList<Enemy> &enemies,
-                  const ArrayList<Tower> &towers,
-                  const SinglyLinkedList<Projectile> &projectiles) const {
+void Grid::render(
+    const ArrayList<Enemy> &enemies, const ArrayList<Tower> &towers,
+    const SinglyLinkedList<Projectile> &projectiles,
+    const char gameMap[Constants::gridRows][Constants::gridCols]) const {
 
   for (int row = 0; row < rows; row++) {
     for (int col = 0; col < cols; col++) {
@@ -48,7 +49,7 @@ void Grid::render(const ArrayList<Enemy> &enemies,
       } else if (projectileHere) {
         cout << "*";
       } else {
-        cout << ".";
+        cout << gameMap[row][col];
       }
     }
     cout << "\n";
