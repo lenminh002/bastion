@@ -65,12 +65,46 @@ Game::Game() : grid(Constants::gridRows, Constants::gridCols), running(true) {
 }
 
 void Game::run() {
-  MapValidator validator;
-  if (!validator.hasPath(gameMap, spawnPosition, exitPosition)) {
-    cout << "Invalid map: no path from spawn to exit\n";
+  if (!validateMap()) {
     return;
   }
 
+  printStartupInfo();
+
+  int tick = 0;
+
+  while (running) {
+    clearScreen();
+
+    spawnEnemies(tick);
+    undoTowerPlacement(tick);
+    fireProjectiles(tick);
+
+    renderFrame();
+
+    updateProjectiles();
+    removeInactiveProjectiles();
+    updateEnemies();
+    updateTowers();
+    checkGameOver();
+
+    tick++;
+
+    this_thread::sleep_for(chrono::milliseconds(300));
+  }
+}
+
+bool Game::validateMap() const {
+  MapValidator validator;
+  if (!validator.hasPath(gameMap, spawnPosition, exitPosition)) {
+    cout << "Invalid map: no path from spawn to exit\n";
+    return false;
+  }
+
+  return true;
+}
+
+void Game::printStartupInfo() {
   ArrayList<int> upgradeLevels;
   towerUpgrades.keysInOrder(upgradeLevels);
 
@@ -90,74 +124,88 @@ void Game::run() {
   printTowerType(towerTypes, "sniper");
   printTowerType(towerTypes, "rapid");
   this_thread::sleep_for(chrono::milliseconds(1000));
+}
 
-  int tick = 0;
+void Game::clearScreen() const {
+  // mac clear one time still show previous output on the terminal
+  system("clear");
+  system("clear");
+}
 
-  while (running) {
-    // mac clear one time still show previous output on the terminal
-    system("clear");
-    system("clear");
+void Game::spawnEnemies(int tick) {
+  if (tick % 3 == 0 && !enemySpawnQueue.isEmpty()) {
+    enemies.pushBack(enemySpawnQueue.dequeue());
+    eventHistory.pushBack("Spawned enemy");
+  }
+}
 
-    if (tick % 3 == 0 && !enemySpawnQueue.isEmpty()) {
-      enemies.pushBack(enemySpawnQueue.dequeue());
-      eventHistory.pushBack("Spawned enemy");
+void Game::undoTowerPlacement(int tick) {
+  if (tick != 5 || towerUndoStack.isEmpty()) {
+    return;
+  }
+
+  Position lastPosition = towerUndoStack.pop();
+  for (int i = 0; i < towers.size(); i++) {
+    if (towers[i].position().row == lastPosition.row &&
+        towers[i].position().col == lastPosition.col) {
+      towers.removeAt(i);
+      eventHistory.pushBack("Undid tower placement");
+      break;
     }
+  }
+}
 
-    if (tick == 5 && !towerUndoStack.isEmpty()) {
-      Position lastPosition = towerUndoStack.pop();
-      // find index of tower with same position
-      for (int i = 0; i < towers.size(); i++) {
-        if (towers[i].position().row == lastPosition.row &&
-            towers[i].position().col == lastPosition.col) {
-          towers.removeAt(i);
-          eventHistory.pushBack("Undid tower placement");
-          break;
-        }
-      }
+void Game::fireProjectiles(int tick) {
+  if (tick % 2 == 0) {
+    projectiles.pushBack(Projectile(Position{3, 5}, 1));
+    eventHistory.pushBack("Fired projectile");
+  }
+}
+
+void Game::renderFrame() const {
+  grid.render(enemies, towers, projectiles, gameMap);
+
+  if (!eventHistory.isEmpty()) {
+    cout << "Last event: " << eventHistory.back() << endl;
+  }
+}
+
+void Game::updateProjectiles() {
+  for (int i = 0; i < projectiles.size(); i++) {
+    projectiles[i].update();
+  }
+}
+
+void Game::removeInactiveProjectiles() {
+  // removeAt(i) shifts the next projectile into index i, so only advance
+  // when nothing was removed.
+  int i = 0;
+  while (i < projectiles.size()) {
+    if (!projectiles[i].isActive()) {
+      projectiles.removeAt(i);
+    } else {
+      i++;
     }
+  }
+}
 
-    if (tick % 2 == 0) {
-      projectiles.pushBack(Projectile(Position{3, 5}, 1));
-      eventHistory.pushBack("Fired projectile");
+void Game::updateEnemies() {
+  for (int i = 0; i < enemies.size(); i++) {
+    enemies[i].update();
+  }
+}
+
+void Game::updateTowers() {
+  for (int i = 0; i < towers.size(); i++) {
+    towers[i].update();
+  }
+}
+
+void Game::checkGameOver() {
+  for (int i = 0; i < enemies.size(); i++) {
+    if (enemySpawnQueue.isEmpty() && enemies[i].reachedExit()) {
+      eventHistory.pushBack("Game Over");
+      running = false;
     }
-
-    grid.render(enemies, towers, projectiles, gameMap);
-
-    // Print last event
-    if (!eventHistory.isEmpty()) {
-      cout << "Last event: " << eventHistory.back() << endl;
-    }
-    for (int i = 0; i < projectiles.size(); i++) {
-      projectiles[i].update();
-    }
-
-    // removeAt(i) shifts the next projectile into index i, so only advance
-    // when nothing was removed.
-    int i = 0;
-    while (i < projectiles.size()) {
-      if (!projectiles[i].isActive()) {
-        projectiles.removeAt(i);
-      } else {
-        i++;
-      }
-    }
-
-    for (int i = 0; i < enemies.size(); i++) {
-      enemies[i].update();
-    }
-    for (int i = 0; i < towers.size(); i++) {
-      towers[i].update();
-    }
-
-    for (int i = 0; i < enemies.size(); i++) {
-      if (enemySpawnQueue.isEmpty() && enemies[i].reachedExit()) {
-        eventHistory.pushBack("Game Over");
-        running = false;
-      }
-    }
-
-    tick++;
-
-    this_thread::sleep_for(chrono::milliseconds(300));
   }
 }

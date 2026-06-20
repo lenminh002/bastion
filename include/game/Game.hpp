@@ -41,4 +41,18 @@ public:
   Game();
 
   void run();
+
+private:
+  bool validateMap() const;
+  void printStartupInfo();
+  void clearScreen() const;
+  void spawnEnemies(int tick);
+  void undoTowerPlacement(int tick);
+  void fireProjectiles(int tick);
+  void renderFrame() const;
+  void updateProjectiles();
+  void removeInactiveProjectiles();
+  void updateEnemies();
+  void updateTowers();
+  void checkGameOver();
 };
