@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Constants.hpp"
-#include "Position.hpp"
+#include "core/Constants.hpp"
+#include "core/Position.hpp"
 
 class Projectile {
   Position pos;

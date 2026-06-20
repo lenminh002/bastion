@@ -1,4 +1,4 @@
-#include "Tower.hpp"
+#include "game/Tower.hpp"
 
 Tower::Tower()
     : pos(Position{-1, -1}), range(0), damage(0), fireRate(0), cooldown(0) {}

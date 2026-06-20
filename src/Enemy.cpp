@@ -1,5 +1,5 @@
-#include "Constants.hpp"
-#include "Enemy.hpp"
+#include "core/Constants.hpp"
+#include "game/Enemy.hpp"
 
 Enemy::Enemy() : pos(Position{-1, -1}) {}
 

@@ -1,6 +1,6 @@
-#include "Game.hpp"
-#include "Constants.hpp"
-#include "MapValidator.hpp"
+#include "game/Game.hpp"
+#include "core/Constants.hpp"
+#include "game/MapValidator.hpp"
 #include <chrono>
 #include <iostream>
 #include <thread>

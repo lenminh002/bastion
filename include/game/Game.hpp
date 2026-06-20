@@ -1,16 +1,17 @@
 #pragma once
 
-#include "ArrayList.hpp"
-#include "BinarySearchTree.hpp"
-#include "DoublyLinkedList.hpp"
-#include "Enemy.hpp"
-#include "Grid.hpp"
-#include "Projectile.hpp"
-#include "Queue.hpp"
-#include "SinglyLinkedList.hpp"
-#include "Stack.hpp"
-#include "Tower.hpp"
-#include "TowerUpgrade.hpp"
+#include "core/Position.hpp"
+#include "game/Enemy.hpp"
+#include "game/Grid.hpp"
+#include "game/Projectile.hpp"
+#include "game/Tower.hpp"
+#include "game/TowerUpgrade.hpp"
+#include "structures/ArrayList.hpp"
+#include "structures/BinarySearchTree.hpp"
+#include "structures/DoublyLinkedList.hpp"
+#include "structures/Queue.hpp"
+#include "structures/SinglyLinkedList.hpp"
+#include "structures/Stack.hpp"
 #include <string>
 
 class Game {

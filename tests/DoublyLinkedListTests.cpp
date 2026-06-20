@@ -1,4 +1,4 @@
-#include "DoublyLinkedList.hpp"
+#include "structures/DoublyLinkedList.hpp"
 
 #include <iostream>
 

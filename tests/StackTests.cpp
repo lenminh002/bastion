@@ -1,4 +1,4 @@
-#include "Stack.hpp"
+#include "structures/Stack.hpp"
 
 #include <iostream>
 

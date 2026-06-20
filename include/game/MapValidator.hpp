@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Constants.hpp"
-#include "Position.hpp"
+#include "core/Constants.hpp"
+#include "core/Position.hpp"
 
 const int gridRows = Constants::gridRows;
 const int gridCols = Constants::gridCols;

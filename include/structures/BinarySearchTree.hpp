@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ArrayList.hpp"
+#include "structures/ArrayList.hpp"
 
 template <typename Key, typename Value> class BinarySearchTree {
   struct Node {

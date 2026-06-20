@@ -1,5 +1,5 @@
-#include "BinarySearchTree.hpp"
-#include "ArrayList.hpp"
+#include "structures/BinarySearchTree.hpp"
+#include "structures/ArrayList.hpp"
 
 #include <iostream>
 #include <string>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Position.hpp"
+#include "core/Position.hpp"
 
 class Enemy {
   Position pos;

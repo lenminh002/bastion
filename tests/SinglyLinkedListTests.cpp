@@ -1,4 +1,4 @@
-#include "SinglyLinkedList.hpp"
+#include "structures/SinglyLinkedList.hpp"
 
 #include <iostream>
 

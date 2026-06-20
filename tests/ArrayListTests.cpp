@@ -1,4 +1,4 @@
-#include "ArrayList.hpp"
+#include "structures/ArrayList.hpp"
 
 #include <iostream>
 

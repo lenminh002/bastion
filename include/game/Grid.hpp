@@ -1,11 +1,11 @@
 #pragma once
 
-#include "ArrayList.hpp"
-#include "Constants.hpp"
-#include "Enemy.hpp"
-#include "Projectile.hpp"
-#include "SinglyLinkedList.hpp"
-#include "Tower.hpp"
+#include "core/Constants.hpp"
+#include "game/Enemy.hpp"
+#include "game/Projectile.hpp"
+#include "game/Tower.hpp"
+#include "structures/ArrayList.hpp"
+#include "structures/SinglyLinkedList.hpp"
 
 class Grid {
   int rows;
