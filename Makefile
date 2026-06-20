@@ -23,6 +23,8 @@ test:
 	./build/doubly_linked_list_tests
 	cmake --build build --target map_validator_tests
 	./build/map_validator_tests
+	cmake --build build --target binary_search_tree_tests
+	./build/binary_search_tree_tests
 
 configure:
 	cmake -S . -B build

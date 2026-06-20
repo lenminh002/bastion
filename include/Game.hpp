@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ArrayList.hpp"
+#include "BinarySearchTree.hpp"
 #include "DoublyLinkedList.hpp"
 #include "Enemy.hpp"
 #include "Grid.hpp"
@@ -9,6 +10,7 @@
 #include "SinglyLinkedList.hpp"
 #include "Stack.hpp"
 #include "Tower.hpp"
+#include "TowerUpgrade.hpp"
 #include <string>
 
 class Game {
@@ -23,6 +25,9 @@ class Game {
 
   // Stack for undoing tower placements
   Stack<Position> towerUndoStack;
+
+  // BST for looking up tower upgrades by level
+  BinarySearchTree<int, TowerUpgrade> towerUpgrades;
 
   bool running;
 

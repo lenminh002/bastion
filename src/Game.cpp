@@ -44,6 +44,10 @@ Game::Game() : grid(Constants::gridRows, Constants::gridCols), running(true) {
   towers.pushBack(Tower(Position{3, 4}));
   eventHistory.pushBack("Built tower");
   towerUndoStack.push(Position{3, 4});
+
+  towerUpgrades.insert(1, TowerUpgrade{1, 1, 0, 50});
+  towerUpgrades.insert(2, TowerUpgrade{2, 2, 1, 100});
+  towerUpgrades.insert(3, TowerUpgrade{3, 4, 1, 200});
 }
 
 void Game::run() {
@@ -52,6 +56,20 @@ void Game::run() {
     cout << "Invalid map: no path from spawn to exit\n";
     return;
   }
+
+  ArrayList<int> upgradeLevels;
+  towerUpgrades.keysInOrder(upgradeLevels);
+
+  cout << "Tower upgrades:\n";
+  for (int i = 0; i < upgradeLevels.size(); i++) {
+    TowerUpgrade *upgrade = towerUpgrades.find(upgradeLevels[i]);
+    if (upgrade != nullptr) {
+      cout << "Level " << upgrade->level << ": +" << upgrade->damageBonus
+           << " damage, +" << upgrade->rangeBonus << " range, cost "
+           << upgrade->cost << "\n";
+    }
+  }
+  this_thread::sleep_for(chrono::milliseconds(1000));
 
   int tick = 0;
 
